@@ -1,5 +1,9 @@
+import copy
+
 SIZE = 5
 
+
+# Assume that the user passes in valid input
 def get_move() -> tuple[int, int] | str:
     move_row  = input('Enter row or PASS:')
     if move_row == 'PASS':
@@ -27,16 +31,33 @@ def print_board(board: list[list[str]]) -> None:
 #‧ ‧ ‧ ‧ ‧
 #‧ ‧ ‧ ‧ ‧
 
+copy_board = copy.deepcopy
 
-def play_move():
-    pass
+
+def stone_for(black_stone: bool)-> str:
+    if black_stone:
+        return '◯'
+    else:
+        return '⬤'
+
+def play_move(move: tuple[int, int] | str, board: list[list[str]], black_to_play: bool) -> list[list[str]]:
+    new_board = copy_board(board)
+    if move == 'PASS':
+        return new_board
+    else:
+        new_board[move[0]][move[1]] = stone_for(black_to_play)
+        return new_board
 
 def main():
     board = make_empty_board()
     black_to_play = True
     print_board(board)
     move = get_move()
-    print(repr(move))
+    #print(repr(move))
+
+    board = play_move(move, board, black_to_play)
+    black_to_play = not black_to_play
+    print_board(board)
 
 
 if __name__ == "__main__":
