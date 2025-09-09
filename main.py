@@ -9,7 +9,9 @@ def get_move() -> tuple[int, int] | str:
     if move_row == 'PASS':
         return 'PASS'
     move_column = input ('Enter column:')
-    move = (int(move_row), int(move_column))
+    move_row=int(move_row)-1
+    move_column=int(move_column)-1
+    move = (move_row, move_column)
     return move
 
 
